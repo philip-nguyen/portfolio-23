@@ -37,12 +37,16 @@
   padding: 2em;
 }
 
+.card > :nth-child(4n - 1) {
+  grid-column-start: 2;
+}
+
 .read-the-docs {
   color: #888;
 }
 
 #myThreeJsBg {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
 }

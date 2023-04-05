@@ -3,18 +3,22 @@ import * as THREE from 'three';
 import './App.css'
 import SceneInit from './lib/SceneInit';
 
+import  Experience  from './components/experience';
+
+
 function App() {
   useEffect(() => {
     const threeJsCanvas = new SceneInit('myThreeJsBg');
     threeJsCanvas.initialize();
     threeJsCanvas.animate();
     
-    document.body.onscroll = threeJsCanvas.moveCamera();
+    window.addEventListener("scroll", threeJsCanvas.moveCamera());
 }, []);
 
   return (
     <div className="App">
-      <canvas id="myThreeJsBg"/>
+      <canvas id="myThreeJsBg" className="z-[-1]"/>
+      <Experience />
     </div>
   )
 }

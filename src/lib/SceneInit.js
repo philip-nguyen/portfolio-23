@@ -20,6 +20,11 @@ export default class SceneInit {
         this.farPlane = 1000;
         this.canvasId = canvasId;
 
+        // Geometries
+        this.torus = undefined;
+        this.philip = undefined;
+        this.moon = undefined;
+
         // NOTE: Additional components.
         this.clock = undefined;
         // this.stats = undefined;
@@ -55,39 +60,40 @@ export default class SceneInit {
         this.scene.background = this.textureLoader.load(backGround);
 
         this.clock = new THREE.Clock();
-        this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+        //this.controls = new OrbitControls(this.camera, this.renderer.domElement);
         // this.stats = Stats();
         // document.body.appendChild(this.stats.dom);
         
         // Torus geometry
         const torusGeo = new THREE.TorusGeometry(10, 3, 16, 100);
         const torusMat = new THREE.MeshStandardMaterial({color: 0x5f31f5});
-        const torus = new THREE.Mesh(torusGeo, torusMat);
+        this.torus = new THREE.Mesh(torusGeo, torusMat);
         
-        this.scene.add(torus);
+        this.scene.add(this.torus);
         
         // Philip cube
         const philipTexture = this.textureLoader.load(philipPic);
-        const philip = new THREE.Mesh(
+        this.philip = new THREE.Mesh(
             new THREE.BoxGeometry(3,3,3),
             new THREE.MeshBasicMaterial( {map: philipTexture })
         );
-        philip.position.set(0.5, 0, 0);
-        this.scene.add(philip);
+        this.philip.position.set(0.5, 0, 0);
+        this.scene.add(this.philip);
 
         // Moon geometry
         const moonTexture = this.textureLoader.load(nasaMoon);
         const normalTexture = this.textureLoader.load(moonTxtr);
 
-        const moon = new THREE.Mesh(
-        new THREE.SphereGeometry(3, 32, 32),
-        new THREE.MeshStandardMaterial( {
-            map: moonTexture,
-            normalMap: normalTexture 
-        })
+        this.moon = new THREE.Mesh(
+            new THREE.SphereGeometry(3, 32, 32),
+            new THREE.MeshStandardMaterial( {
+                map: moonTexture,
+                normalMap: normalTexture 
+            })
         );
-        moon.position.z = 30;
-        moon.position.setX(-10);
+        this.moon.position.z = 30;
+        this.moon.position.setX(-10);
+        this.scene.add(this.moon);
 
         // ambient light which is for the whole scene
         this.ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -109,11 +115,14 @@ export default class SceneInit {
         // requestAnimationFrame(this.animate.bind(this));
         window.requestAnimationFrame(this.animate.bind(this));
         
+        this.torus.rotation.x += 0.01;
+        this.torus.rotation.y += 0.005;
+        this.torus.rotation.z += 0.01;
         
         
         this.render();
         //this.stats.update();
-        this.controls.update();
+        //this.controls.update();
     }
     
     render() {
@@ -124,15 +133,15 @@ export default class SceneInit {
     
     moveCamera() {
         const t = document.body.getBoundingClientRect().top;
-        moon.rotation.x += 0.05;
-        moon.rotation.y += 0.075;
-        moon.rotation.z += 0.05;
+        this.moon.rotation.x += 0.05;
+        this.moon.rotation.y += 0.075;
+        this.moon.rotation.z += 0.05;
 
-        philip.rotation.y += 0.01;
+        this.philip.rotation.y += 0.01;
         //philip.rotation.z += 0.01;
 
-        camera.position.z = t * -0.01;
-        camera.position.x = t * 0.002;
+        this.camera.position.z = t * -0.01;
+        this.camera.position.x = t * 0.002;
     }
 
     onWindowResize() {
