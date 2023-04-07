@@ -45,6 +45,12 @@
   color: #888;
 }
 
+.canvas-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
 #myThreeJsBg {
   position: fixed;
   top: 0;
