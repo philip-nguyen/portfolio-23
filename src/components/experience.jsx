@@ -35,7 +35,7 @@ function Experience() {
                 {experiences.map((experience, index) => {
                     return index % 2 === 1 ? 
                     <>
-                    <div className="col-span-2"></div>
+                    <div className="col-span-2" key={`experience-point-${index}`}></div>
                     <ExperienceCard 
                         key={`experience-${index}`}
                         experience={experience}
@@ -49,7 +49,7 @@ function Experience() {
                         experience={experience}
                         isOdd={index % 2}
                     />
-                    <div className="col-span-2"></div>
+                    <div className="col-span-2" key={`experience-point-${index}`}></div>
                     </>
                     })}
             </div>

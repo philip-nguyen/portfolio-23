@@ -4,19 +4,23 @@ import Torus from './Torus';
 import background from './../../assets/esv-sky.jpg';
 
 export default canvas => {
-    const origin = new THREE.Vector3(0,0,0);
+    //const origin = new THREE.Vector3(0,0,0);
 
+    
     const screenDimensions = {
         width: canvas.width,
         height: canvas.height
     }
+    console.log(screenDimensions);
+
+    const textureLoader = new THREE.TextureLoader();
 
     const scene = buildScene(); 
     const renderer = buildRender(screenDimensions);
     const camera = buildCamera(screenDimensions); 
     const sceneSubjects = createSceneSubjects(scene);
     
-    const textureLoader = new THREE.TextureLoader();
+    
 
     function buildScene() { 
         const scene = new THREE.Scene();
@@ -47,10 +51,12 @@ export default canvas => {
         );
 
         camera.position.setZ(30);
+
+        return camera;
     }
     function createSceneSubjects(scene) { 
         const sceneSubjects = [
-            new Torus(scene),
+            Torus(scene),
         ];
 
         return sceneSubjects;
@@ -76,8 +82,8 @@ export default canvas => {
     function onScroll() {
         const t = document.body.getBoundingClientRect().top;
 
-        camera.position.z = t * -0.01;
-        camera.position.x = t *  0.005;
+        camera.position.z = t * -0.02;
+        camera.position.x = t *  0.01;
     }
 
     return {

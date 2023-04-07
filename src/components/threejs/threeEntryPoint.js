@@ -9,15 +9,18 @@ import SceneManager from './SceneManager';
 
 export default containerElement => {
     const canvas = createCanvas(document, containerElement);
-    const sceneManager = new SceneManager(canvas);
+    const sceneManager = SceneManager(canvas);
     // add tailwind css classname to canvas to send to back
     canvas.classList.add('z-[-1]');
+    canvas.classList.add('canvas-bg');
 
     bindEventListeners();
     render();
 
     function createCanvas(document, containerElement) {
         const canvas = document.createElement('canvas');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
         containerElement.current.appendChild(canvas);
         return canvas;
     }
@@ -31,8 +34,8 @@ export default containerElement => {
     function resizeCanvas() {
         canvas.style.width = window.innerWidth;
         canvas.style.height= window.innerHeight;
-        canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetHeight;
+        //canvas.width = canvas.offsetWidth;
+        //canvas.height = canvas.offsetHeight;
         sceneManager.onWindowResize();
     }
 
