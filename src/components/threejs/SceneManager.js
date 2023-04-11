@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import Torus from './Torus';
+import Box from './Box'
 // image assets
 import background from './../../assets/esv-sky.jpg';
 
@@ -50,13 +51,14 @@ export default canvas => {
             1000
         );
 
-        camera.position.setZ(30);
+        console.log(camera.position);
 
         return camera;
     }
     function createSceneSubjects(scene) { 
         const sceneSubjects = [
             Torus(scene),
+            Box(scene, textureLoader)
         ];
 
         return sceneSubjects;
@@ -81,9 +83,13 @@ export default canvas => {
 
     function onScroll() {
         const t = document.body.getBoundingClientRect().top;
+        
+        
+        // move the torus
+        // move the box
 
-        camera.position.z = t * -0.02;
-        camera.position.x = t *  0.01;
+        camera.position.z = t * -0.01;
+        camera.position.x = t * -0.0002;
     }
 
     return {
